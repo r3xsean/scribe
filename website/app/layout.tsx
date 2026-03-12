@@ -73,6 +73,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="google-site-verification" content="ypDb1UA0mSsGBONoTDv-n07zftnQ3Pr1g_1pgW3QDxE" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
