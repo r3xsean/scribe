@@ -1,47 +1,10 @@
-"use client";
+import {
+  DownloadButtonNav,
+  DownloadButtonHero,
+  DownloadButtonCTA,
+} from "./components/DownloadButton";
 
-import { useEffect, useState } from "react";
-
-const DOWNLOAD_URL =
-  "https://github.com/r3xsean/scribe/releases/latest/download/Scribe.Setup.1.0.0.exe";
 const GITHUB_URL = "https://github.com/r3xsean/scribe";
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    setIsMobile(
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)
-    );
-  }, []);
-  return isMobile;
-}
-
-function WindowsIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
-    </svg>
-  );
-}
-
-function DownloadIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-      />
-    </svg>
-  );
-}
 
 function ShieldIcon({ className }: { className?: string }) {
   return (
@@ -220,8 +183,6 @@ const STEPS = [
 ];
 
 export default function Home() {
-  const isMobile = useIsMobile();
-
   return (
     <div className="min-h-screen bg-grid">
       {/* Nav */}
@@ -257,15 +218,7 @@ export default function Home() {
               <GithubIcon className="w-4 h-4" />
               <span className="hidden sm:inline">GitHub</span>
             </a>
-            {!isMobile && (
-              <a
-                href={DOWNLOAD_URL}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm font-medium hover:bg-violet-500/20 transition-all"
-              >
-                <DownloadIcon className="w-3.5 h-3.5" />
-                Download
-              </a>
-            )}
+            <DownloadButtonNav />
           </div>
         </div>
       </nav>
@@ -292,33 +245,7 @@ export default function Home() {
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up animate-delay-300">
-            {isMobile ? (
-              <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-zinc-800 bg-zinc-900/50">
-                <WindowsIcon className="w-5 h-5 text-zinc-500" />
-                <div className="text-left">
-                  <p className="text-sm font-medium text-zinc-300">
-                    Windows only
-                  </p>
-                  <p className="text-xs text-zinc-500">
-                    Visit this page on your PC to download
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <>
-                <a
-                  href={DOWNLOAD_URL}
-                  className="group flex items-center gap-3 px-8 py-4 rounded-xl btn-shimmer text-white font-semibold text-base shadow-lg shadow-violet-500/10"
-                >
-                  <DownloadIcon className="w-5 h-5 transition-transform group-hover:translate-y-0.5" />
-                  Download for Windows
-                </a>
-                <div className="flex items-center gap-2 text-xs text-zinc-500">
-                  <WindowsIcon className="w-3 h-3" />
-                  <span>Windows 10+ &middot; ~400 MB</span>
-                </div>
-              </>
-            )}
+            <DownloadButtonHero />
           </div>
         </div>
 
@@ -562,35 +489,7 @@ export default function Home() {
             forever, no strings attached.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4">
-            {isMobile ? (
-              <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-zinc-800 bg-zinc-900/50">
-                <WindowsIcon className="w-5 h-5 text-zinc-500" />
-                <div className="text-left">
-                  <p className="text-sm font-medium text-zinc-300">
-                    Windows only
-                  </p>
-                  <p className="text-xs text-zinc-500">
-                    Visit this page on your PC to download
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <>
-                <a
-                  href={DOWNLOAD_URL}
-                  className="group flex items-center gap-3 px-8 py-4 rounded-xl btn-shimmer text-white font-semibold text-base shadow-lg shadow-violet-500/10"
-                >
-                  <DownloadIcon className="w-5 h-5 transition-transform group-hover:translate-y-0.5" />
-                  Download for Windows
-                </a>
-                <div className="flex items-center gap-2 text-xs text-zinc-500">
-                  <WindowsIcon className="w-3 h-3" />
-                  <span>
-                    Windows 10+ &middot; ~400 MB &middot; Free forever
-                  </span>
-                </div>
-              </>
-            )}
+            <DownloadButtonCTA />
           </div>
         </div>
       </section>
