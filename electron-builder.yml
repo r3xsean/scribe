@@ -1,0 +1,19 @@
+appId: com.scribe.app
+productName: Scribe
+directories:
+  buildResources: resources
+  output: release
+files:
+  - dist/**/*
+extraResources:
+  - from: backend/dist/server
+    to: backend
+    filter:
+      - "**/*"
+win:
+  target: nsis
+  icon: resources/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true

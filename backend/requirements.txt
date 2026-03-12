@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+faster-whisper
+yt-dlp
+nvidia-ml-py
+psutil
