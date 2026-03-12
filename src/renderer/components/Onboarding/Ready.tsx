@@ -23,7 +23,7 @@ export default function Ready({ hardware, selectedModel }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-8 animate-fade-in">
+    <div className="flex flex-col items-center gap-8 animate-fade-in-up">
       {/* Success icon */}
       <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center">
         <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -32,7 +32,7 @@ export default function Ready({ hardware, selectedModel }: Props) {
       </div>
 
       <div className="space-y-2 text-center">
-        <h2 className="text-xl font-semibold">You're all set!</h2>
+        <h2 className="text-xl font-semibold tracking-tight">You're all set!</h2>
         <p className="text-zinc-400 text-sm">Everything is configured and ready to go.</p>
       </div>
 
@@ -60,8 +60,9 @@ export default function Ready({ hardware, selectedModel }: Props) {
 
       <button
         onClick={handleStart}
-        className="px-8 py-3 bg-zinc-100 text-zinc-900 rounded-lg font-medium
-                   hover:bg-white active:scale-[0.98] transition-all duration-150"
+        className="px-8 py-3 bg-accent-500 text-white rounded-xl font-medium
+                   hover:bg-accent-600 active:scale-[0.97] transition-all duration-150
+                   glow-accent"
       >
         Start Transcribing
       </button>

@@ -51,17 +51,14 @@ export default function UrlInput() {
         }
         addJob(job)
 
-        // Select the first job automatically
         if (lines.indexOf(url) === 0) {
           setSelectedJobId(job.id)
         }
 
-        // Subscribe to progress updates
         subscribeToJob(job.id, (update) => {
           updateJob(job.id, update)
         })
       } catch (err) {
-        // Create a local error job
         const errorJob = {
           id: `error-${Date.now()}-${Math.random().toString(36).slice(2)}`,
           url,
@@ -93,17 +90,19 @@ export default function UrlInput() {
         onKeyDown={handleKeyDown}
         placeholder="Paste video URLs here (one per line)&#10;&#10;Supports YouTube and TikTok"
         rows={4}
-        className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2.5 text-sm
+        className="w-full bg-zinc-850 border border-zinc-800 rounded-lg px-3.5 py-2.5 text-sm
                    placeholder:text-zinc-600 resize-none
-                   focus:outline-none focus:border-zinc-600 transition-colors"
+                   focus:outline-none focus:border-accent-500/50 focus:ring-1 focus:ring-accent-500/25
+                   hover:border-zinc-700 transition-all duration-150"
       />
 
       <div className="flex items-center gap-2">
         <select
           value={selectedLanguage}
           onChange={(e) => setSelectedLanguage(e.target.value)}
-          className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-sm
-                     focus:outline-none focus:border-zinc-600 transition-colors appearance-none cursor-pointer"
+          className="flex-1 bg-zinc-850 border border-zinc-800 rounded-lg px-3.5 py-2 text-sm
+                     focus:outline-none focus:border-accent-500/50 focus:ring-1 focus:ring-accent-500/25
+                     hover:border-zinc-700 transition-all duration-150 appearance-none cursor-pointer"
         >
           {LANGUAGES.map((lang) => (
             <option key={lang.value} value={lang.value}>
@@ -115,8 +114,8 @@ export default function UrlInput() {
         <button
           onClick={handleSubmit}
           disabled={submitting || !urls.trim()}
-          className="px-4 py-2 bg-zinc-100 text-zinc-900 rounded-lg text-sm font-medium
-                     hover:bg-white active:scale-[0.98] transition-all duration-150
+          className="px-4 py-2 bg-accent-500 text-white rounded-lg text-sm font-medium
+                     hover:bg-accent-600 active:scale-[0.97] transition-all duration-150
                      disabled:opacity-40 disabled:pointer-events-none shrink-0"
         >
           {submitting ? 'Starting...' : 'Transcribe'}

@@ -28,13 +28,15 @@ export default function OnboardingWizard() {
           <div
             key={s}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              STEPS.indexOf(step) >= i ? 'bg-zinc-300 scale-100' : 'bg-zinc-700 scale-75'
+              STEPS.indexOf(step) >= i
+                ? 'bg-accent-400 scale-100'
+                : 'bg-zinc-700 scale-75'
             }`}
           />
         ))}
       </div>
 
-      <div className="w-full max-w-lg animate-fade-in">
+      <div className="w-full max-w-lg" key={step}>
         {step === 'welcome' && <Welcome onNext={next} />}
         {step === 'hardware' && (
           <HardwareScan

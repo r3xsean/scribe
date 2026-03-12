@@ -4,7 +4,7 @@ import type { TranscriptionJob } from '../../../shared/types'
 
 const STATUS_STYLES: Record<TranscriptionJob['status'], { bg: string; text: string; label: string }> = {
   pending: { bg: 'bg-zinc-700/30', text: 'text-zinc-400', label: 'Pending' },
-  downloading: { bg: 'bg-blue-500/10', text: 'text-blue-400', label: 'Downloading' },
+  downloading: { bg: 'bg-accent-500/10', text: 'text-accent-300', label: 'Downloading' },
   transcribing: { bg: 'bg-amber-500/10', text: 'text-amber-400', label: 'Transcribing' },
   done: { bg: 'bg-green-500/10', text: 'text-green-400', label: 'Done' },
   error: { bg: 'bg-red-500/10', text: 'text-red-400', label: 'Error' },
@@ -12,7 +12,7 @@ const STATUS_STYLES: Record<TranscriptionJob['status'], { bg: string; text: stri
 
 const PROGRESS_COLORS: Record<TranscriptionJob['status'], string> = {
   pending: 'bg-zinc-600',
-  downloading: 'bg-blue-400',
+  downloading: 'bg-accent-400',
   transcribing: 'bg-amber-400',
   done: 'bg-green-400',
   error: 'bg-red-400',
@@ -52,7 +52,7 @@ export default function JobQueue() {
             }}
             className={`group relative p-3 rounded-lg transition-all duration-150 ${
               isSelected
-                ? 'bg-zinc-800 border border-zinc-700'
+                ? 'bg-zinc-850 border border-accent-500/30 ring-1 ring-accent-500/10'
                 : 'bg-zinc-900/50 border border-transparent hover:bg-zinc-900 hover:border-zinc-800'
             } ${job.status === 'done' ? 'cursor-pointer' : 'cursor-default'}`}
           >
@@ -63,7 +63,8 @@ export default function JobQueue() {
                 removeJob(job.id)
               }}
               className="absolute top-2 right-2 w-5 h-5 rounded flex items-center justify-center
-                         opacity-0 group-hover:opacity-100 hover:bg-zinc-700 transition-all text-zinc-500 hover:text-zinc-300"
+                         opacity-0 group-hover:opacity-100 hover:bg-zinc-700 transition-all
+                         text-zinc-500 hover:text-zinc-300"
               title="Remove"
             >
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -91,7 +92,7 @@ export default function JobQueue() {
 
             {/* Progress bar for active jobs */}
             {isActive && (
-              <div className="mt-2 w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+              <div className="relative mt-2 w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${PROGRESS_COLORS[job.status]} ${
                     job.progress < 100 ? 'progress-active' : ''

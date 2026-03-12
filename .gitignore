@@ -6,3 +6,6 @@ backend/build/
 backend/__pycache__/
 *.pyc
 .env
+website/node_modules/
+website/.next/
+website/out/

@@ -17,7 +17,6 @@ export default function HardwareScan({ onNext }: Props) {
       try {
         const hw = await fetchHardware()
         if (!cancelled) {
-          // Add small delay for UX
           setTimeout(() => {
             if (!cancelled) {
               setHardware(hw)
@@ -38,17 +37,17 @@ export default function HardwareScan({ onNext }: Props) {
 
   if (scanning) {
     return (
-      <div className="flex flex-col items-center text-center gap-6">
+      <div className="flex flex-col items-center text-center gap-6 animate-fade-in-up">
         <div className="relative">
-          <div className="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center">
-            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="w-16 h-16 rounded-full bg-accent-500/10 flex items-center justify-center">
+            <svg className="w-8 h-8 text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25z" />
             </svg>
           </div>
-          <div className="absolute inset-0 rounded-full border-2 border-zinc-600 pulse-ring" />
+          <div className="absolute inset-0 rounded-full border-2 border-accent-400/50 pulse-ring" />
         </div>
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold">Scanning Hardware</h2>
+          <h2 className="text-xl font-semibold tracking-tight">Scanning Hardware</h2>
           <p className="text-zinc-400 text-sm">Detecting your GPU and system capabilities...</p>
         </div>
       </div>
@@ -57,14 +56,15 @@ export default function HardwareScan({ onNext }: Props) {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center text-center gap-6">
+      <div className="flex flex-col items-center text-center gap-6 animate-fade-in-up">
         <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center">
           <span className="text-red-400 text-lg">!</span>
         </div>
         <p className="text-zinc-300">{error}</p>
         <button
           onClick={() => { setScanning(true); setError(null) }}
-          className="px-6 py-2 bg-zinc-800 rounded-lg text-sm hover:bg-zinc-700 transition-colors"
+          className="px-6 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-sm font-medium
+                     hover:bg-zinc-750 hover:border-zinc-600 active:scale-[0.97] transition-all duration-150"
         >
           Retry
         </button>
@@ -78,9 +78,9 @@ export default function HardwareScan({ onNext }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-8 animate-fade-in">
+    <div className="flex flex-col items-center gap-8 animate-fade-in-up">
       <div className="space-y-2 text-center">
-        <h2 className="text-xl font-semibold">Hardware Detected</h2>
+        <h2 className="text-xl font-semibold tracking-tight">Hardware Detected</h2>
         <p className="text-zinc-400 text-sm">Here's what we found on your system</p>
       </div>
 
@@ -88,16 +88,14 @@ export default function HardwareScan({ onNext }: Props) {
         {/* GPU */}
         <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg border border-zinc-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-800 flex items-center justify-center">
-              <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <div className="w-9 h-9 rounded-lg bg-accent-500/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25z" />
               </svg>
             </div>
             <div>
               <p className="text-sm font-medium">GPU</p>
-              <p className="text-xs text-zinc-500">
-                {hardware!.gpu_name || 'No GPU detected'}
-              </p>
+              <p className="text-xs text-zinc-500">{hardware!.gpu_name || 'No GPU detected'}</p>
             </div>
           </div>
           {hardware!.vram_mb > 0 && (
@@ -110,15 +108,15 @@ export default function HardwareScan({ onNext }: Props) {
         {/* CUDA */}
         <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg border border-zinc-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-800 flex items-center justify-center">
-              <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <div className="w-9 h-9 rounded-lg bg-accent-500/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
               </svg>
             </div>
             <div>
               <p className="text-sm font-medium">CUDA Acceleration</p>
               <p className="text-xs text-zinc-500">
-                {hardware!.cuda_available ? 'Available - GPU acceleration enabled' : 'Not available - will use CPU'}
+                {hardware!.cuda_available ? 'Available — GPU acceleration enabled' : 'Not available — will use CPU'}
               </p>
             </div>
           </div>
@@ -128,8 +126,8 @@ export default function HardwareScan({ onNext }: Props) {
         {/* RAM */}
         <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg border border-zinc-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-800 flex items-center justify-center">
-              <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <div className="w-9 h-9 rounded-lg bg-accent-500/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
               </svg>
             </div>
@@ -143,8 +141,8 @@ export default function HardwareScan({ onNext }: Props) {
 
       <button
         onClick={() => onNext(hardware!)}
-        className="px-8 py-3 bg-zinc-100 text-zinc-900 rounded-lg font-medium
-                   hover:bg-white active:scale-[0.98] transition-all duration-150"
+        className="px-8 py-3 bg-accent-500 text-white rounded-xl font-medium
+                   hover:bg-accent-600 active:scale-[0.97] transition-all duration-150"
       >
         Continue
       </button>

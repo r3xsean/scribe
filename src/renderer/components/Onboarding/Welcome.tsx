@@ -6,11 +6,11 @@ interface Props {
 
 export default function Welcome({ onNext }: Props) {
   return (
-    <div className="flex flex-col items-center text-center gap-8">
+    <div className="flex flex-col items-center text-center gap-8 animate-fade-in-up">
       {/* App icon */}
-      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center shadow-lg">
+      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent-500/20 to-accent-600/10 border border-accent-500/20 flex items-center justify-center shadow-lg glow-accent">
         <svg
-          className="w-10 h-10 text-zinc-300"
+          className="w-10 h-10 text-accent-300"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -34,9 +34,11 @@ export default function Welcome({ onNext }: Props) {
 
       <button
         onClick={onNext}
-        className="px-8 py-3 bg-zinc-100 text-zinc-900 rounded-lg font-medium
-                   hover:bg-white active:scale-[0.98] transition-all duration-150
-                   focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-950"
+        className="px-8 py-3 bg-accent-500 text-white rounded-xl font-medium
+                   hover:bg-accent-600 active:scale-[0.97] transition-all duration-150
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950
+                   glow-accent"
       >
         Get Started
       </button>

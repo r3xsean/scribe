@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-accent: #a78bfa;
+  --color-accent-hover: #c4b5fd;
+  --color-accent-muted: rgba(167, 139, 250, 0.1);
+  --color-accent-glow: rgba(167, 139, 250, 0.15);
+}
+
+body {
+  background: #09090b;
+  color: #fafafa;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Gradient text helper */
+.text-gradient {
+  background: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect for hero */
+.glow {
+  position: relative;
+}
+.glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle grid background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Fade in animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* Floating animation for hero visual */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Shimmer for download button */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.btn-shimmer {
+  background: linear-gradient(
+    110deg,
+    #a78bfa 0%,
+    #c4b5fd 25%,
+    #a78bfa 50%,
+    #8b5cf6 75%,
+    #a78bfa 100%
+  );
+  background-size: 200% 100%;
+  transition: all 0.3s ease;
+}
+.btn-shimmer:hover {
+  animation: shimmer 2s linear infinite;
+  box-shadow: 0 0 32px rgba(167, 139, 250, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}

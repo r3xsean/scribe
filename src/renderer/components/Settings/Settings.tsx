@@ -88,18 +88,19 @@ export default function Settings({ onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-backdrop" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-zinc-900 border border-zinc-800 rounded-xl w-full max-w-md max-h-[80vh] overflow-hidden shadow-2xl animate-fade-in">
+      <div className="relative bg-zinc-900 border border-zinc-800 rounded-xl w-full max-w-md max-h-[80vh] overflow-hidden shadow-xl animate-modal">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800">
-          <h2 className="text-base font-semibold">Settings</h2>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800/50">
+          <h2 className="text-base font-semibold tracking-tight">Settings</h2>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-zinc-800 transition-colors"
+            className="w-7 h-7 rounded-lg flex items-center justify-center text-zinc-400
+                       hover:bg-zinc-800 hover:text-zinc-200 active:scale-[0.95] transition-all duration-150"
           >
-            <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -109,7 +110,7 @@ export default function Settings({ onClose }: Props) {
         <div className="overflow-y-auto max-h-[calc(80vh-60px)] p-5 space-y-6">
           {loading ? (
             <div className="flex justify-center py-8">
-              <div className="w-6 h-6 border-2 border-zinc-700 border-t-zinc-400 rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-zinc-700 border-t-accent-400 rounded-full animate-spin" />
             </div>
           ) : (
             <>
@@ -121,8 +122,9 @@ export default function Settings({ onClose }: Props) {
                 <select
                   value={selectedLanguage}
                   onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm
-                             focus:outline-none focus:border-zinc-500 transition-colors appearance-none cursor-pointer"
+                  className="w-full bg-zinc-850 border border-zinc-800 rounded-lg px-3.5 py-2 text-sm
+                             focus:outline-none focus:border-accent-500/50 focus:ring-1 focus:ring-accent-500/25
+                             hover:border-zinc-700 transition-all duration-150 appearance-none cursor-pointer"
                 >
                   {LANGUAGES.map((lang) => (
                     <option key={lang.value} value={lang.value}>
@@ -139,21 +141,21 @@ export default function Settings({ onClose }: Props) {
                     Hardware
                   </label>
                   <div className="space-y-1.5">
-                    <div className="flex items-center justify-between p-2.5 bg-zinc-800/50 rounded-lg text-xs">
+                    <div className="flex items-center justify-between p-2.5 bg-zinc-850 rounded-lg text-xs">
                       <span className="text-zinc-400">GPU</span>
                       <span className="text-zinc-200">{hardware.gpu_name || 'None'}</span>
                     </div>
                     {hardware.vram_mb > 0 && (
-                      <div className="flex items-center justify-between p-2.5 bg-zinc-800/50 rounded-lg text-xs">
+                      <div className="flex items-center justify-between p-2.5 bg-zinc-850 rounded-lg text-xs">
                         <span className="text-zinc-400">VRAM</span>
                         <span className="text-zinc-200">{formatMb(hardware.vram_mb)}</span>
                       </div>
                     )}
-                    <div className="flex items-center justify-between p-2.5 bg-zinc-800/50 rounded-lg text-xs">
+                    <div className="flex items-center justify-between p-2.5 bg-zinc-850 rounded-lg text-xs">
                       <span className="text-zinc-400">System RAM</span>
                       <span className="text-zinc-200">{formatMb(hardware.ram_mb)}</span>
                     </div>
-                    <div className="flex items-center justify-between p-2.5 bg-zinc-800/50 rounded-lg text-xs">
+                    <div className="flex items-center justify-between p-2.5 bg-zinc-850 rounded-lg text-xs">
                       <span className="text-zinc-400">CUDA</span>
                       <span className={hardware.cuda_available ? 'text-green-400' : 'text-red-400'}>
                         {hardware.cuda_available ? 'Available' : 'Not Available'}
@@ -177,10 +179,10 @@ export default function Settings({ onClose }: Props) {
                     return (
                       <div
                         key={model.name}
-                        className={`p-3 rounded-lg border transition-colors ${
+                        className={`p-3 rounded-lg border transition-all duration-150 ${
                           isSelected
-                            ? 'bg-zinc-800 border-zinc-600'
-                            : 'bg-zinc-800/30 border-zinc-800 hover:border-zinc-700'
+                            ? 'bg-zinc-850 border-accent-500/30 ring-1 ring-accent-500/10'
+                            : 'bg-zinc-850/50 border-zinc-800 hover:border-zinc-700'
                         }`}
                       >
                         <div className="flex items-center justify-between">
@@ -195,18 +197,20 @@ export default function Settings({ onClose }: Props) {
                                 {!isSelected && (
                                   <button
                                     onClick={() => setSelectedModel(model.name)}
-                                    className="text-[10px] px-2 py-1 rounded bg-zinc-700 hover:bg-zinc-600 transition-colors"
+                                    className="text-[10px] px-2 py-1 rounded bg-zinc-700 hover:bg-zinc-600
+                                               active:scale-[0.97] transition-all duration-150"
                                   >
                                     Use
                                   </button>
                                 )}
                                 {isSelected && (
-                                  <span className="text-[10px] text-green-400 px-2 py-1">Active</span>
+                                  <span className="text-[10px] text-accent-300 px-2 py-1">Active</span>
                                 )}
                                 <button
                                   onClick={() => handleDelete(model.name)}
                                   disabled={isDeleting}
-                                  className="text-[10px] px-2 py-1 rounded text-red-400 hover:bg-red-500/10 transition-colors
+                                  className="text-[10px] px-2 py-1 rounded text-red-400 hover:bg-red-500/10
+                                             active:scale-[0.97] transition-all duration-150
                                              disabled:opacity-40"
                                 >
                                   {isDeleting ? '...' : 'Delete'}
@@ -216,7 +220,8 @@ export default function Settings({ onClose }: Props) {
                               <button
                                 onClick={() => handleDownload(model.name)}
                                 disabled={isDownloading}
-                                className="text-[10px] px-2 py-1 rounded bg-zinc-700 hover:bg-zinc-600 transition-colors
+                                className="text-[10px] px-2 py-1 rounded bg-accent-500/10 text-accent-300
+                                           hover:bg-accent-500/20 active:scale-[0.97] transition-all duration-150
                                            disabled:opacity-40"
                               >
                                 {isDownloading ? `${Math.round(downloadProgress)}%` : 'Download'}
@@ -228,9 +233,9 @@ export default function Settings({ onClose }: Props) {
                         <p className="text-[10px] text-zinc-500 mt-1">{model.description}</p>
 
                         {isDownloading && (
-                          <div className="mt-2 w-full h-1 bg-zinc-700 rounded-full overflow-hidden">
+                          <div className="relative mt-2 w-full h-1 bg-zinc-700 rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-zinc-400 rounded-full transition-all duration-300"
+                              className="h-full bg-accent-400 rounded-full transition-all duration-300"
                               style={{ width: `${downloadProgress}%` }}
                             />
                           </div>

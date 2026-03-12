@@ -1,65 +1,146 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-zinc-850: #1e1e22;
+  --color-zinc-750: #2e2e33;
+  --color-accent-50: #f3f0ff;
+  --color-accent-100: #e5deff;
+  --color-accent-200: #cbbdff;
+  --color-accent-300: #a78bfa;
+  --color-accent-400: #8b5cf6;
+  --color-accent-500: #7c3aed;
+  --color-accent-600: #6d28d9;
+  --color-accent-700: #5b21b6;
+  --color-accent-900: #2e1065;
+}
+
 body {
   @apply bg-zinc-950 text-zinc-100 font-sans;
   -webkit-app-region: no-drag;
   user-select: none;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Easing curves */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+/* --- Entrance animations --- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 3px;
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* Progress bar animation */
-@keyframes progress-pulse {
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Modal --- */
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Feedback --- */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-subtle {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
 }
 
-.progress-active {
-  animation: progress-pulse 2s ease-in-out infinite;
+@keyframes progress-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* Spin animation for loading */
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* --- Utility classes --- */
+
+.animate-fade-in {
+  animation: fade-in 250ms var(--ease-out) both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 350ms var(--ease-out) both;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 350ms var(--ease-out) both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 350ms var(--ease-out) both;
+}
+
+.animate-backdrop {
+  animation: backdrop-in 200ms ease-out both;
+}
+
+.animate-modal {
+  animation: modal-in 350ms var(--ease-out) both;
 }
 
 .animate-spin {
   animation: spin 1s linear infinite;
 }
 
-/* Fade in animation */
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.progress-active {
+  animation: pulse-subtle 2s ease-in-out infinite;
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-/* Pulse animation for scanning */
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(1.4); opacity: 0; }
+.progress-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  background-size: 200% 100%;
+  animation: progress-shimmer 1.5s ease-in-out infinite;
 }
 
 .pulse-ring {
   animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 50ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 150ms; }
+.delay-4 { animation-delay: 200ms; }
+
+/* Glow effects */
+.glow-accent {
+  box-shadow:
+    0 0 20px rgba(139, 92, 246, 0.15),
+    0 0 60px rgba(139, 92, 246, 0.08);
 }

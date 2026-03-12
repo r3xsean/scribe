@@ -32,12 +32,13 @@ export default function TranscriptView() {
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-zinc-800/50 shrink-0">
         <div className="min-w-0">
-          <p className="text-xs text-zinc-500 truncate">{selectedJob.url}</p>
+          <p className="text-xs text-zinc-500 truncate">{selectedJob.title || selectedJob.url}</p>
         </div>
         <button
           onClick={handleCopy}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
-                     bg-zinc-800 hover:bg-zinc-700 transition-colors shrink-0 ml-4"
+                     bg-zinc-800 border border-zinc-700 hover:bg-zinc-750 hover:border-zinc-600
+                     active:scale-[0.97] transition-all duration-150 shrink-0 ml-4"
         >
           {copied ? (
             <>
@@ -59,7 +60,7 @@ export default function TranscriptView() {
 
       {/* Transcript content */}
       <div className="flex-1 overflow-y-auto px-6 py-4">
-        <div className="prose prose-invert prose-sm max-w-none select-text">
+        <div className="max-w-prose select-text">
           <p className="text-zinc-200 text-sm leading-relaxed whitespace-pre-wrap">
             {selectedJob.transcript}
           </p>
